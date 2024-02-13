@@ -6,19 +6,19 @@ const productSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true,
+        // required: true,
     },
     description: {
         type: String,
-        required: true,
+        // required: true,
     },
     quantity: {
         type: String,
-        required: true,
+        // required: true,
     },
     media: {
         type: String,
-        required:true
+        // required:true
     },category: {
         type: mongoose.Schema.ObjectId,
         ref: 'Category',

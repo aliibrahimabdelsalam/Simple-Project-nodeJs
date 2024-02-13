@@ -1,6 +1,6 @@
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-const uploadImage=require('../utils/uploadImages')
+const uploadMedia=require('../utils/uploadMedia')
 const ApiFeatures = require("../utils/apiFeatures");
 let getProducts = async (req, res, next) => {
     try {
@@ -48,11 +48,11 @@ let getProductByCategory = async (req, res, next) => {
 }
 let postProduct = async (req, res, next) => {
     try {
-        let uploadRes = await uploadImage(req.file.path)
+        let uploadRes = await uploadMedia(req.file.path)
         const { title, price, quantity, description, category } = req.body;
         const categoryObj = await Category.findOne({ title: category });
         if (uploadRes) {
-                const product = await Product.create({ title, price,description, media: uploadRes.url, category:categoryObj.id });  
+                const product = await Product.create({ title, price,description, quantity,media: uploadRes.url, category:categoryObj.id });  
                 res.status(201).json({
                     status: "success",
                     data: product
