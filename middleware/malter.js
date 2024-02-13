@@ -1,12 +1,12 @@
 const multer = require('multer')
 const fs = require("fs"); 
 
-if (!fs.existsSync("./images")) { 
-    fs.mkdirSync("./images"); 
+if (!fs.existsSync("./media")) { 
+    fs.mkdirSync("./media"); 
 } 
 var storage = multer.diskStorage({ 
     destination: function (req, file, cb) { 
-        cb(null, "./images"); 
+        cb(null, "./media"); 
     }, 
     filename: function (req, file, cb) { 
         cb(null, new Date().toISOString().replace(/:/g,".")+file.originalname); 

@@ -6,20 +6,20 @@ const productSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true,
+        // required: true,
     },
     description: {
         type: String,
-        required: true,
+        // required: true,
     },
     quantity: {
         type: String,
-        required: true,
+        // required: true,
     },
-    image: {
+    media: {
         type: String,
-        required:true
-    }, category: {
+        // required:true
+    },category: {
         type: mongoose.Schema.ObjectId,
         ref: 'Category',
         required: true
@@ -29,9 +29,7 @@ const productSchema = new mongoose.Schema({
         default: Date.now(),
         select:false
     },
-    updatedBy: {
-        type:Date
-    }
+    
 },
     {
         toJSON: { virtuals:true},
