@@ -28,7 +28,6 @@ let getProduct = async (req, res, next) => {
 }
 let getProductByCategory = async (req, res, next) => {
     try {
-        // console.log(req.params.categoryName + "sdsd");
         const categoryName = req.params.categoryName;
         console.log(categoryName)
         const category = await Category.findOne({ title: categoryName });
