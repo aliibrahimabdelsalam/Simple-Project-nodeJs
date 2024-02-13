@@ -51,9 +51,7 @@ let postProduct = async (req, res, next) => {
     try {
         let uploadRes = await uploadImage(req.file.path)
         const { title, price, quantity, description, category } = req.body;
-        console.log(category);
         const categoryObj = await Category.findOne({ title: category });
-        console.log(categoryObj.id);
         if (uploadRes) {
                 const product = await Product.create({ title, price,description, media: uploadRes.url, category:categoryObj.id });  
                 res.status(201).json({

@@ -6,19 +6,19 @@ const productSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        // required: true,
+        required: true,
     },
     description: {
         type: String,
-        // required: true,
+        required: true,
     },
     quantity: {
         type: String,
-        // required: true,
+        required: true,
     },
     media: {
         type: String,
-        // required:true
+        required:true
     },category: {
         type: mongoose.Schema.ObjectId,
         ref: 'Category',
@@ -30,22 +30,9 @@ const productSchema = new mongoose.Schema({
         select:false
     },
     
-},
-    {
-        toJSON: { virtuals:true},
-        toObject: { virtuals: true }
-    }
+}
 );
-// productSchema.pre("save", function (next) {
-// }
 
-// productSchema.pre(/^find/, function (next) {
-//     this.populate({
-//         path: 'category',
-//         select:'title'
-//     })
-//     next();
-// })
 const Product = mongoose.model('Product', productSchema);
 
 module.exports=Product
