@@ -1,0 +1,80 @@
+use databaseStart;
+db.people.find()
+db.people.find({$or:[{age:{$gt:40}},{"country.city":"Aivee"}]})
+//db.people.find({country:"Aivee"})
+
+db.people.find({age:{$gte:25,$lte:38}})
+db.people.find({salary:{$gte:20000}}).sort({age:1}).limit(1)
+db.people.find({country:'Russia'}).sort({age:-1}).skip(2).limit(1)
+db.people.aggregate( [
+   {
+       $group: {
+            _id: "$country",
+             count: { $sum: 1 } }
+   }
+])
+
+db.people.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: 1,
+           totalAmount: { $sum:  "$salary"  },
+         }
+     }
+   ]
+)
+
+db.people.aggregate([
+  {
+    $group: {
+      _id: '$company',
+      avgSalary: { $avg: '$salary' },
+    },
+  },
+]);
+db.people.aggregate([
+  {
+      $match:{country:"Germany"}
+  },{
+    $project: { fullname: { $concat: ['$first_name', ' ', '$last_name'] } },
+  }
+])
+
+db.people.aggregate( [
+   {
+       $group: {
+            _id: "$age",
+             count: { $sum: 1 } }
+   }
+])
+db.people.find({age:{$lt:30}},{email:1,_id:0})
+db.createCollection("coll-index")
+show collections
+
+db.people.getIndexes()
+db.people.find({ email: "ali@gmail.com" }).explain("executionStats")
+db.people.createIndex({email:"ali@gmail.com"})
+db.people.createIndex({email:"ali@gmail.com",name:"ali"})
+
+db.people.createIndex({email:"ali@gmail.com",name:"mohamed"},{hidden:true})
+
+db.collection.dropIndexes() 
+
+
+//Bouns
+db.people.aggregate([
+    {$group:{
+        _id:"$address.city",
+        cities: { $addToSet: '$address.city'} ,
+        countCities:{$sum:1}
+    }},
+    {
+        $project:{
+        _id: 0,
+      country: '$_id',
+      NumOfCities: { $size: '$cities' }, // set.size, array.length
+      citiesCount: 1,
+    }}
+])
